@@ -3,171 +3,143 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>小六爻掐指神通术</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
+    <title>小茗同学专用导航</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
-        
-        body { 
-            background-color: #000000;
-            color: #d4d4d8;
-            font-family: 'Noto Serif SC', serif;
-            -webkit-tap-highlight-color: transparent;
+        :root {
+            /* 主色调：深藏青色，沉稳大气 */
+            --primary-color: #2c3e50; 
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
         }
 
-        .gold-text {
-            background: linear-gradient(135deg, #f3d4b0 0%, #b58e63 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
 
-        /* 核心改进：背景变亮，字变黑，框放大 */
-        .input-zen {
-            @apply w-full bg-amber-100/90 border-2 border-amber-600/30 rounded-xl py-3 text-base text-center focus:outline-none focus:border-amber-500 transition-all text-black font-bold shadow-inner;
-            appearance: none;
+        header {
+            margin-bottom: 30px;
+            text-align: center;
         }
 
-        .btn-divine {
-            background: linear-gradient(135deg, #27272a 0%, #09090b 100%);
-            border: 1px solid rgba(181, 142, 99, 0.4);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+        header h1 {
+            font-size: 1.4rem;
+            color: var(--primary-color);
+            font-weight: 600;
+            letter-spacing: 1px;
+            margin: 0;
+        }
+        
+        header p {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: 8px;
         }
 
-        .btn-divine:active {
-            background: #b58e63;
-            color: #000;
+        /* 导航容器 */
+        .container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+            width: 92%;
+            max-width: 420px;
         }
 
-        .result-container {
-            background: #050505;
-            border: 1px solid rgba(181, 142, 99, 0.2);
+        .nav-card {
+            background: var(--card-bg);
+            padding: 25px 15px;
+            border-radius: 20px;
+            text-decoration: none;
+            color: var(--primary-color);
+            text-align: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+        
+        .nav-card:active {
+            transform: scale(0.97);
+            background-color: #f8f9fa;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.06);
         }
 
-        .divider {
-            height: 1px;
-            background: linear-gradient(90deg, transparent, rgba(181, 142, 99, 0.4), transparent);
+        /* 图标样式 */
+        .icon {
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+        }
+
+        .title {
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        footer {
+            margin-top: auto;
+            padding: 25px;
+            font-size: 0.85rem;
+            color: #95a5a6;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-6">
+<body>
 
-    <div class="w-full max-w-md mt-4"> 
-        <header class="text-center mb-10">
-            <h1 class="text-3xl font-black gold-text tracking-widest mb-2">小六爻掐指神通术</h1>
-            <div id="lunarInfo" class="text-[11px] text-zinc-500 tracking-[0.2em] font-light italic"></div>
-        </header>
+    <header>
+        <h1>🚀小茗同学导航</h1>
+        <p>乾坤妙法 · 尽在掌握</p>
+    </header>
 
-        <section class="bg-zinc-950/80 rounded-[2rem] p-6 border border-zinc-900 mb-8 shadow-2xl">
-            <div class="grid grid-cols-4 gap-3 mb-8">
-                <div>
-                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">年</label>
-                    <input type="number" id="year" class="input-zen">
-                </div>
-                <div>
-                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">月</label>
-                    <select id="month" class="input-zen"></select>
-                </div>
-                <div>
-                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">日</label>
-                    <select id="day" class="input-zen"></select>
-                </div>
-                <div>
-                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">时辰</label>
-                    <select id="hour" class="input-zen"></select>
-                </div>
-            </div>
+    <div class="container">
+        <a href="https://dj2828666-hub.github.io/luopan0003/" class="nav-card">
+            <div class="icon">🧭</div>
+            <div class="title">九宫格罗盘</div>
+        </a>
 
-            <button onclick="startDivination()" class="btn-divine w-full py-5 text-amber-500 rounded-2xl text-sm font-black tracking-[1.2em] uppercase">
-                测算天机
-            </button>
-        </section>
+        <a href="https://dj2828666-hub.github.io/05/" class="nav-card">
+            <div class="icon">🎨</div>
+            <div class="title">五行助运穿衣</div>
+        </a>
 
-        <div id="resultArea" class="hidden animate-in fade-in zoom-in-95 duration-700">
-            <div class="result-container rounded-[2.5rem] p-8 text-center">
-                <div id="finalBadge" class="text-[10px] tracking-[0.3em] text-amber-600 font-bold uppercase mb-2"></div>
-                
-                <div id="finalResultName" class="text-6xl font-black mb-6 text-zinc-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">--</div>
-                
-                <div class="divider mb-6"></div>
-                
-                <div id="processSteps" class="flex justify-around mb-8 text-[11px] text-zinc-500">
-                    </div>
+        <a href="https://dj2828666-hub.github.io/06/" class="nav-card">
+            <div class="icon">✋</div>
+            <div class="title">小六爻掐指术</div>
+        </a>
 
-                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-800/50">
-                    <p id="interpretation" class="text-xs leading-relaxed text-zinc-400 font-light italic text-left"></p>
-                </div>
-            </div>
-        </div>
+        <a href="#" class="nav-card">
+            <div class="icon">💞</div>
+            <div class="title">婚姻婚配方位</div>
+        </a>
+
+        <a href="#" class="nav-card">
+            <div class="icon">📜</div>
+            <div class="title">命宫计算</div>
+        </a>
+
+        <a href="#" class="nav-card">
+            <div class="icon">☯️</div>
+            <div class="title">象数疗法</div>
+        </a>
     </div>
 
-    <script>
-        const gods = ["大安", "留连", "速喜", "赤口", "小吉", "空亡"];
-        const shichen = ["子时 23-01", "丑时 01-03", "寅时 03-05", "卯时 05-07", "辰时 07-09", "巳时 09-11", "午时 11-13", "未时 13-15", "申时 15-17", "酉时 17-19", "戌时 19-21", "亥时 21-23"];
-        const chineseNums = ["", "初一", "初二", "初三", "初四", "初五", "初六", "初七", "初八", "初九", "初十", "十一", "十二", "十三", "十四", "十五", "十六", "十七", "十八", "十九", "二十", "廿一", "廿二", "廿三", "廿四", "廿五", "廿六", "廿七", "廿八", "廿九", "三十"];
-        
-        const infoMap = {
-            "大安": { badge: "大吉 · 顺遂", text: "大安事事昌，求谋在东方。失物去不远，宅舍保安康。行人身未动，病者主无妨。" },
-            "留连": { badge: "中平 · 迟缓", text: "留连事难成，求谋日未明。官事只宜缓，去者未回程。失物南方见，急讨方心称。" },
-            "速喜": { badge: "大吉 · 喜庆", text: "速喜喜临门，求财向南行。失物午未间，逢人路上寻。官事有贵人，夫人报喜信。" },
-            "赤口": { badge: "凶 · 纷争", text: "赤口主口舌，官非切宜防。失物急去寻，行人有惊慌。鸡犬多作怪，更须防咀咒。" },
-            "小吉": { badge: "吉 · 顺利", text: "小吉最吉昌，路上好商量。阴人来报喜，失物在坤方。行人立便至，交关真是强。" },
-            "空亡": { badge: "谨慎 · 虚无", text: "空亡事不祥，阴人多乖张。求财无利益，行人有灾殃。失物寻不见，病人逢暗鬼。" }
-        };
+    <footer>
+        © 2026 小茗同学 · 潜心研发
+    </footer>
 
-        function init() {
-            const date = new Date();
-            const lunar = Lunar.fromDate(date);
-            document.getElementById('lunarInfo').innerText = `— ${lunar.getYearInGanZhi()}年 ${lunar.getMonthInChinese()}月${lunar.getDayInChinese()} —`;
-
-            const mSelect = document.getElementById('month');
-            const dSelect = document.getElementById('day');
-            const hSelect = document.getElementById('hour');
-            
-            for(let i=1; i<=12; i++) mSelect.options.add(new Option(i + '月', i));
-            for(let i=1; i<=30; i++) dSelect.options.add(new Option(chineseNums[i], i));
-            shichen.forEach((s, i) => hSelect.options.add(new Option(s, i + 1)));
-
-            document.getElementById('year').value = date.getFullYear();
-            mSelect.value = lunar.getMonth();
-            dSelect.value = lunar.getDay();
-            const hour = date.getHours();
-            let hIdx = Math.floor((hour + 1) % 24 / 2);
-            hSelect.value = hIdx + 1;
-        }
-
-        function startDivination() {
-            const m = parseInt(document.getElementById('month').value);
-            const d = parseInt(document.getElementById('day').value);
-            const h = parseInt(document.getElementById('hour').value);
-
-            let mIdx = (m - 1) % 6;
-            let dIdx = (mIdx + d - 1) % 6;
-            let hIdx = (dIdx + h - 1) % 6;
-            let hResult = gods[hIdx];
-
-            const resArea = document.getElementById('resultArea');
-            resArea.classList.remove('hidden');
-            
-            document.getElementById('finalResultName').innerText = hResult;
-            document.getElementById('finalBadge').innerText = infoMap[hResult].badge;
-            document.getElementById('interpretation').innerText = infoMap[hResult].text;
-
-            const steps = [
-                { label: '月起', to: gods[mIdx] },
-                { label: '日起', to: gods[dIdx] },
-                { label: '时起', to: hResult }
-            ];
-
-            document.getElementById('processSteps').innerHTML = steps.map(s => `
-                <div class="flex flex-col items-center">
-                    <span class="mb-1 opacity-40 uppercase tracking-tighter font-bold">${s.label}</span>
-                    <span class="text-amber-200 font-bold">${s.to}</span>
-                </div>
-            `).join('<div class="text-zinc-800 self-center">|</div>');
-        }
-
-        window.onload = init;
-    </script>
 </body>
 </html>
+
