@@ -7,118 +7,109 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/lunar-javascript/lunar.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@200;600;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700;900&display=swap');
         
         body { 
-            background-color: #050505;
-            color: #d4d4d8;
+            background-color: #000000;
+            color: #e2e8f0;
             font-family: 'Noto Serif SC', serif;
             -webkit-tap-highlight-color: transparent;
-        }
-
-        .gold-border {
-            border: 1px solid rgba(212, 163, 115, 0.2);
+            overflow-x: hidden;
         }
 
         .gold-text {
-            background: linear-gradient(135deg, #e2b888 0%, #a67c52 100%);
+            background: linear-gradient(135deg, #f3d4b0 0%, #b58e63 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
-        .input-underlined {
-            @apply w-full bg-transparent border-b border-zinc-800 py-2 text-sm text-center focus:outline-none focus:border-amber-600 transition-all text-amber-100;
+        /* 解决看不清的问题：加深背景，提亮文字 */
+        .input-zen {
+            @apply w-full bg-zinc-900 border-b border-amber-900/50 py-1 text-base text-center focus:outline-none focus:border-amber-500 transition-all text-amber-200 font-medium;
             appearance: none;
         }
 
-        .btn-zen {
-            background-color: #111;
-            border: 1px solid #a67c52;
-            transition: all 0.4s;
-            letter-spacing: 0.5em;
+        .btn-divine {
+            background: rgba(181, 142, 99, 0.05);
+            border: 1px solid rgba(181, 142, 99, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .btn-zen:active {
-            background-color: #a67c52;
-            color: #000;
+        .btn-divine:active {
+            background: rgba(181, 142, 99, 0.2);
+            transform: scale(0.98);
         }
 
-        .badge-line {
-            position: relative;
-            display: inline-block;
-        }
-        .badge-line::before, .badge-line::after {
-            content: "";
-            position: absolute;
-            top: 50%;
-            width: 20px;
-            height: 1px;
-            background: #a67c52;
-        }
-        .badge-line::before { left: -30px; }
-        .badge-line::after { right: -30px; }
-
-        .result-card {
+        .result-container {
             background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            border: 1px solid rgba(181, 142, 99, 0.15);
+        }
+
+        /* 紧凑型修饰 */
+        .decoration-line {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #b58e63, transparent);
+            opacity: 0.3;
         }
     </style>
 </head>
-<body class="flex items-center justify-center min-h-screen p-6">
+<body class="flex flex-col items-center justify-start min-h-screen p-4">
 
-    <div class="w-full max-w-md">
-        <header class="text-center mb-12">
-            <p class="text-[10px] tracking-[0.4em] text-zinc-500 mb-2 uppercase">Spiritual Divination</p>
-            <h1 class="text-4xl font-black gold-text mb-4">小六爻掐指神通术</h1>
-            <div id="lunarInfo" class="text-xs text-zinc-500 tracking-widest font-light italic">
-                </div>
-        </header>
+    <header class="text-center mt-2 mb-4">
+        <p class="text-[9px] tracking-[0.5em] text-zinc-600 mb-1">DIVINATION · ORACLE</p>
+        <h1 class="text-2xl font-black gold-text tracking-wider">小六爻掐指神通术</h1>
+        <div id="lunarInfo" class="text-[11px] text-zinc-500 mt-1 font-light italic"></div>
+    </header>
 
-        <div class="gold-border rounded-2xl p-6 bg-zinc-900/30 backdrop-blur-sm">
-            <div class="grid grid-cols-4 gap-4 mb-8">
+    <div class="w-full max-w-md space-y-3">
+        <section class="bg-zinc-900/40 rounded-2xl p-4 border border-zinc-800/50">
+            <div class="grid grid-cols-4 gap-3 mb-5">
                 <div class="text-center">
-                    <label class="text-[10px] text-zinc-600 block mb-2">年</label>
-                    <input type="number" id="year" class="input-underlined">
+                    <label class="text-[10px] text-zinc-500 block mb-1">年</label>
+                    <input type="number" id="year" class="input-zen">
                 </div>
                 <div class="text-center">
-                    <label class="text-[10px] text-zinc-600 block mb-2">月</label>
-                    <select id="month" class="input-underlined"></select>
+                    <label class="text-[10px] text-zinc-500 block mb-1">月</label>
+                    <select id="month" class="input-zen"></select>
                 </div>
                 <div class="text-center">
-                    <label class="text-[10px] text-zinc-600 block mb-2">日</label>
-                    <select id="day" class="input-underlined"></select>
+                    <label class="text-[10px] text-zinc-500 block mb-1">日</label>
+                    <select id="day" class="input-zen"></select>
                 </div>
                 <div class="text-center">
-                    <label class="text-[10px] text-zinc-600 block mb-2">时</label>
-                    <select id="hour" class="input-underlined"></select>
+                    <label class="text-[10px] text-zinc-500 block mb-1">时</label>
+                    <select id="hour" class="input-zen"></select>
                 </div>
             </div>
 
-            <button onclick="startDivination()" class="btn-zen w-full py-4 text-amber-500 rounded-lg font-light text-sm">
+            <button onclick="startDivination()" class="btn-divine w-full py-3 text-amber-500 rounded-xl text-xs font-bold tracking-[0.8em]">
                 测算天机
             </button>
-        </div>
+        </section>
 
-        <div id="resultArea" class="mt-12 hidden opacity-0 transition-opacity duration-1000">
-            <div class="result-card gold-border rounded-3xl p-8 text-center relative">
-                <div class="badge-line">
-                    <span id="finalBadge" class="text-[10px] tracking-[0.2em] text-amber-600 font-bold">吉</span>
+        <div id="resultArea" class="hidden opacity-0 transform translate-y-2 transition-all duration-700">
+            <div class="result-container rounded-3xl p-6 text-center">
+                <div class="flex items-center justify-center gap-4 mb-2">
+                    <div class="w-8 decoration-line"></div>
+                    <span id="finalBadge" class="text-[11px] tracking-widest text-amber-600 font-bold"></span>
+                    <div class="w-8 decoration-line"></div>
                 </div>
                 
-                <div id="finalResultName" class="text-6xl font-black my-6 text-zinc-100">--</div>
+                <div id="finalResultName" class="text-5xl font-black my-4 text-slate-100">--</div>
                 
-                <div class="h-[1px] w-full bg-gradient-to-r from-transparent via-zinc-800 to-transparent my-6"></div>
-                
-                <div id="processSteps" class="flex justify-around mb-8 text-[10px] text-zinc-500 font-light">
+                <div id="processSteps" class="flex justify-around py-3 border-t border-b border-zinc-900 text-[10px] text-zinc-500">
                     </div>
 
-                <div class="text-left bg-zinc-900/50 p-4 rounded-lg">
-                    <p id="interpretation" class="text-sm leading-loose text-zinc-400 font-light"></p>
+                <div class="mt-4 px-2 text-left">
+                    <p id="interpretation" class="text-xs leading-relaxed text-zinc-400 font-light italic"></p>
                 </div>
             </div>
-            
-            <p class="text-center text-[10px] text-zinc-700 mt-8">“凡事顺应天时，心诚则灵”</p>
         </div>
     </div>
+
+    <footer class="mt-auto py-4">
+        <p class="text-[9px] text-zinc-800 tracking-tighter">AUTHENTIC SPIRITUAL TRADITION</p>
+    </footer>
 
     <script>
         const gods = ["大安", "留连", "速喜", "赤口", "小吉", "空亡"];
@@ -135,14 +126,14 @@
             "速喜": { badge: "大吉 · 喜庆", text: "速喜喜临门，求财向南行。失物午未间，逢人路上寻。官事有贵人，夫人报喜信。" },
             "赤口": { badge: "凶 · 纷争", text: "赤口主口舌，官非切宜防。失物急去寻，行人有惊慌。鸡犬多作怪，更须防咀咒。" },
             "小吉": { badge: "吉 · 顺利", text: "小吉最吉昌，路上好商量。阴人来报喜，失物在坤方。行人立便至，交关真是强。" },
-            "空亡": { badge: "需谨慎 · 虚无", text: "空亡事不祥，阴人多乖张。求财无利益，行人有灾殃。失物寻不见，病人逢暗鬼。" }
+            "空亡": { badge: "谨慎 · 虚无", text: "空亡事不祥，阴人多乖张。求财无利益，行人有灾殃。失物寻不见，病人逢暗鬼。" }
         };
 
         function init() {
             const date = new Date();
             const lunar = Lunar.fromDate(date);
             
-            document.getElementById('lunarInfo').innerText = `— ${lunar.getYearInGanZhi()}年 ${lunar.getMonthInChinese()}月 ${lunar.getDayInChinese()} —`;
+            document.getElementById('lunarInfo').innerText = `— ${lunar.getYearInGanZhi()}年 ${lunar.getMonthInChinese()}月${lunar.getDayInChinese()} —`;
 
             const mSelect = document.getElementById('month');
             const dSelect = document.getElementById('day');
@@ -172,27 +163,24 @@
             let hResult = gods[hIdx];
 
             const resArea = document.getElementById('resultArea');
-            resArea.classList.remove('hidden');
-            setTimeout(() => resArea.style.opacity = "1", 50);
+            resArea.classList.remove('hidden', 'opacity-0', 'translate-y-2');
             
             document.getElementById('finalResultName').innerText = hResult;
             document.getElementById('finalBadge').innerText = infoMap[hResult].badge;
             document.getElementById('interpretation').innerText = infoMap[hResult].text;
 
             const steps = [
-                { label: '月', to: gods[mIdx] },
-                { label: '日', to: gods[dIdx] },
-                { label: '时', to: hResult }
+                { label: '月起', to: gods[mIdx] },
+                { label: '日起', to: gods[dIdx] },
+                { label: '时起', to: hResult }
             ];
 
             document.getElementById('processSteps').innerHTML = steps.map(s => `
                 <div class="flex flex-col items-center">
-                    <span class="mb-1 opacity-50">${s.label}</span>
-                    <span class="text-amber-200">${s.to}</span>
+                    <span class="mb-1 opacity-50 uppercase tracking-tighter">${s.label}</span>
+                    <span class="text-amber-100 font-bold">${s.to}</span>
                 </div>
-            `).join('<div class="text-zinc-800">|</div>');
-
-            resArea.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            `).join('<div class="text-zinc-800 self-center">|</div>');
         }
 
         window.onload = init;
