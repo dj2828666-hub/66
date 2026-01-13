@@ -22,9 +22,9 @@
             -webkit-text-fill-color: transparent;
         }
 
-        /* 解决看不清：深色卡片风格输入框 */
+        /* 核心改进：背景变亮，字变黑，框放大 */
         .input-zen {
-            @apply w-full bg-zinc-900/80 border border-amber-900/30 rounded-lg py-2 text-sm text-center focus:outline-none focus:border-amber-500 transition-all text-amber-200;
+            @apply w-full bg-amber-100/90 border-2 border-amber-600/30 rounded-xl py-3 text-base text-center focus:outline-none focus:border-amber-500 transition-all text-black font-bold shadow-inner;
             appearance: none;
         }
 
@@ -42,7 +42,6 @@
         .result-container {
             background: #050505;
             border: 1px solid rgba(181, 142, 99, 0.2);
-            box-shadow: 0 0 30px rgba(181, 142, 99, 0.05);
         }
 
         .divider {
@@ -53,48 +52,49 @@
 </head>
 <body class="flex items-center justify-center min-h-screen p-6">
 
-    <div class="w-full max-w-md -mt-10"> <header class="text-center mb-8">
+    <div class="w-full max-w-md mt-4"> 
+        <header class="text-center mb-10">
             <h1 class="text-3xl font-black gold-text tracking-widest mb-2">小六爻掐指神通术</h1>
             <div id="lunarInfo" class="text-[11px] text-zinc-500 tracking-[0.2em] font-light italic"></div>
         </header>
 
-        <section class="bg-zinc-950 rounded-3xl p-6 border border-zinc-900 mb-6">
-            <div class="grid grid-cols-4 gap-2 mb-6">
+        <section class="bg-zinc-950/80 rounded-[2rem] p-6 border border-zinc-900 mb-8 shadow-2xl">
+            <div class="grid grid-cols-4 gap-3 mb-8">
                 <div>
-                    <label class="text-[10px] text-zinc-600 block mb-2 text-center">年</label>
+                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">年</label>
                     <input type="number" id="year" class="input-zen">
                 </div>
                 <div>
-                    <label class="text-[10px] text-zinc-600 block mb-2 text-center">月</label>
+                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">月</label>
                     <select id="month" class="input-zen"></select>
                 </div>
                 <div>
-                    <label class="text-[10px] text-zinc-600 block mb-2 text-center">日</label>
+                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">日</label>
                     <select id="day" class="input-zen"></select>
                 </div>
                 <div>
-                    <label class="text-[10px] text-zinc-600 block mb-2 text-center">时</label>
+                    <label class="text-[11px] text-amber-600/70 block mb-3 text-center font-bold">时辰</label>
                     <select id="hour" class="input-zen"></select>
                 </div>
             </div>
 
-            <button onclick="startDivination()" class="btn-divine w-full py-4 text-amber-500 rounded-2xl text-xs font-bold tracking-[1em] uppercase">
+            <button onclick="startDivination()" class="btn-divine w-full py-5 text-amber-500 rounded-2xl text-sm font-black tracking-[1.2em] uppercase">
                 测算天机
             </button>
         </section>
 
-        <div id="resultArea" class="hidden animate-in fade-in slide-in-from-bottom-2 duration-700">
-            <div class="result-container rounded-[2rem] p-8 text-center">
+        <div id="resultArea" class="hidden animate-in fade-in zoom-in-95 duration-700">
+            <div class="result-container rounded-[2.5rem] p-8 text-center">
                 <div id="finalBadge" class="text-[10px] tracking-[0.3em] text-amber-600 font-bold uppercase mb-2"></div>
                 
-                <div id="finalResultName" class="text-6xl font-black mb-6 text-zinc-100 drop-shadow-2xl">--</div>
+                <div id="finalResultName" class="text-6xl font-black mb-6 text-zinc-100 drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">--</div>
                 
                 <div class="divider mb-6"></div>
                 
-                <div id="processSteps" class="flex justify-around mb-8 text-[10px] text-zinc-600">
+                <div id="processSteps" class="flex justify-around mb-8 text-[11px] text-zinc-500">
                     </div>
 
-                <div class="bg-zinc-900/30 p-4 rounded-xl">
+                <div class="bg-zinc-900/40 p-5 rounded-2xl border border-zinc-800/50">
                     <p id="interpretation" class="text-xs leading-relaxed text-zinc-400 font-light italic text-left"></p>
                 </div>
             </div>
@@ -161,8 +161,8 @@
 
             document.getElementById('processSteps').innerHTML = steps.map(s => `
                 <div class="flex flex-col items-center">
-                    <span class="mb-1 opacity-40 uppercase tracking-tighter">${s.label}</span>
-                    <span class="text-amber-200">${s.to}</span>
+                    <span class="mb-1 opacity-40 uppercase tracking-tighter font-bold">${s.label}</span>
+                    <span class="text-amber-200 font-bold">${s.to}</span>
                 </div>
             `).join('<div class="text-zinc-800 self-center">|</div>');
         }
