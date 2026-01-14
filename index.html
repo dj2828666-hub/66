@@ -6,44 +6,50 @@
     <title>改命实用工具箱</title>
     <style>
         :root {
-            /* 主色调：深藏青色，沉稳大气 */
-            --primary-color: #2c3e50; 
+            --primary-color: #2c3e50; 
             --bg-color: #f0f2f5;
             --card-bg: #ffffff;
-            --text-main: #34495e;
         }
 
         body {
-            /* 优先使用系统楷体，增加国学氛围 */
-            font-family: "STKaiti", "KaiTi", "PingFang SC", "Segoe UI", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Helvetica Neue", sans-serif;
             background-color: var(--bg-color);
             margin: 0;
-            padding: 20px 0;
+            padding: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             min-height: 100vh;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent; /* 清除移动端点击高亮 */
+            -webkit-tap-highlight-color: transparent;
         }
 
+        /* 头部样式：确保绝对居中对齐 */
         header {
+            margin-top: 40px;
             margin-bottom: 30px;
             text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
         header h1 {
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: var(--primary-color);
-            font-weight: 700;
-            letter-spacing: 2px;
+            font-weight: 600;
+            letter-spacing: 1px;
             margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+        
         header p {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: #7f8c8d;
-            margin-top: 10px;
+            margin: 10px 0 0 0;
             letter-spacing: 1px;
         }
 
@@ -58,54 +64,46 @@
 
         .nav-card {
             background: var(--card-bg);
-            padding: 28px 15px;
-            border-radius: 24px;
+            padding: 25px 15px;
+            border-radius: 20px;
             text-decoration: none;
-            color: var(--text-main);
+            color: var(--primary-color);
             text-align: center;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.05);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.06), 0 1px 3px rgba(0,0,0,0.04);
+            transition: all 0.2s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid rgba(0,0,0,0.03);
         }
-        
-        /* 手机端点击反馈 */
+        
         .nav-card:active {
-            transform: scale(0.94);
-            background-color: #fcfcfc;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            transform: scale(0.97);
+            background-color: #f8f9fa;
         }
 
-        /* 图标样式 */
+        /* 图标样式：严格保持 2.8rem */
         .icon {
-            font-size: 3rem;
-            margin-bottom: 15px;
-            /* 给图标加一点点呼吸感 */
-            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            font-size: 2.8rem;
+            margin-bottom: 12px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
         }
 
         .title {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             line-height: 1.4;
         }
 
+        /* 页脚样式：往上调了一点 */
         footer {
-            margin-top: auto;
-            padding: 30px;
+            margin-top: 50px; /* 增加与上方卡片的间距 */
+            padding-bottom: 60px; /* 增加底部留白，让文字视觉上移 */
             font-size: 0.85rem;
-            color: #bdc3c7;
+            color: #95a5a6;
             text-align: center;
-        }
-
-        /* 针对超小屏幕手机优化 */
-        @media (max-width: 350px) {
-            .container { gap: 12px; }
-            .icon { font-size: 2.5rem; }
-            .title { font-size: 0.9rem; }
+            width: 100%;
         }
     </style>
 </head>
@@ -154,5 +152,3 @@
 
 </body>
 </html>
-
-
